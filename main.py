@@ -55,7 +55,6 @@ def load_user(row_id):
 @app.route("/")
 @app.route("/home")
 def home():
-  #p = current_user.username
   posts = sqlite_code.show_all_posts()
   items = sqlite_code.show_all_users()
   return render_template('home.html', posts=posts, items=items)
