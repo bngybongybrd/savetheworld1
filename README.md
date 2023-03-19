@@ -7,6 +7,7 @@ Link to Replit:
 https://replit.com/@bngybongybrd/savetheworld1?v=1
 
 Features that should be/needs to be added:
+- Make 'Remember me' checkbox work
 - Deletion/Updating of posts
 - Deleting/Editing of accounts
   - Adding communication links e.g. discord username, twitter, phone number?
