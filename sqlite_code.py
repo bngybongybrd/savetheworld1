@@ -1,19 +1,7 @@
 import sqlite3
 
 
-def show_all_posts():
-  # Connect to database and Create a cursor
-  conn = sqlite3.connect('posts.db')
-  c = conn.cursor()
-  c.execute("SELECT * FROM posts")
 
-  items = c.fetchall()
-  for item in items:
-    print(item)
-
-  # Commit our command and Close the connection
-  conn.commit()
-  conn.close()
 
 
 def posts():
@@ -108,17 +96,51 @@ def pw_check(password_typed, email):
     return False
 
 
-def get_user(email):
+def get_user_with_email(email):
   # Connect to database and Create a cursor
   conn = sqlite3.connect('user_database.db')
   c = conn.cursor()
   c.execute("SELECT rowid, * from user_database WHERE email = (?)", [email])
-  # Commit our command and Close the connection
   usr = c.fetchone()
   usr = list(usr)
+  # Commit our command and Close the connection
   conn.commit()
   conn.close()
   return usr
+
+def get_user_with_rowid(rowid):
+  # Connect to database and Create a cursor
+  conn = sqlite3.connect('user_database.db')
+  c = conn.cursor()
+  c.execute("SELECT rowid, * from user_database WHERE rowid = (?)", [rowid])
+  usr = c.fetchone()
+  usr = list(usr)
+  # Commit our command and Close the connection
+  conn.commit()
+  conn.close()
+  return usr
+
+def add_post(author, title, content, date):
+  # Connect to database and Create a cursor
+  conn = sqlite3.connect('posts.db')
+  c = conn.cursor()
+  c.execute("INSERT INTO posts VALUES (?,?,?,?)", [author, title, content, date])
+  # Commit our command and Close the connection
+  conn.commit()
+  conn.close()
+
+def show_all_posts():
+  # Connect to database and Create a cursor
+  conn = sqlite3.connect('posts.db')
+  c = conn.cursor()
+  c.execute("SELECT * FROM posts")
+
+  items = c.fetchall()
+
+  # Commit our command and Close the connection
+  conn.commit()
+  conn.close()
+  return items
 
 
 '''

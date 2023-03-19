@@ -1,8 +1,9 @@
 from flask import Flask, render_template, url_for, flash, redirect, request
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, PostForm
 from flask_login import LoginManager, login_user, UserMixin, current_user, logout_user, login_required
 import sqlite_code
 import sqlite3
+import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'b50ac89557ebfa192ed90596cbaa2dfd'
@@ -39,7 +40,7 @@ def load_user(row_id):
     return User(int(lu[0]), lu[1], lu[2], lu[3])
 
 
-posts = [{
+'''posts = [{
   'user': 'John',
   'title': 'Post 1',
   'content': 'Help',
@@ -49,18 +50,15 @@ posts = [{
   'title': 'Post 2',
   'content': 'Help',
   'date': 'March 4, 2023'
-}]
+}]'''
 
 @app.route("/")
 @app.route("/home")
 def home():
-  '''
-  import sqlite # add above
-  
-  post_contents = sqlite.posts()
-  '''
+  #p = current_user.username
+  posts = sqlite_code.show_all_posts()
   items = sqlite_code.show_all_users()
-  return render_template('home.html', posts=posts, items=items)  # post_contents=post_contents
+  return render_template('home.html', posts=posts, items=items)
 
 
 @app.route("/about")
@@ -87,7 +85,7 @@ def login():
   form = LoginForm()
   if form.validate_on_submit():
     if sqlite_code.email_lookup(form.email.data) and sqlite_code.pw_check(form.password.data ,form.email.data):
-      user = sqlite_code.get_user(form.email.data)
+      user = sqlite_code.get_user_with_email(form.email.data)
       Us = load_user(user[0])
       login_user(Us, remember=form.remember.data)
       next_page = request.args.get('next')
@@ -107,4 +105,16 @@ def logout():
 def account():
   return render_template('account.html', title='Account')
 
+@app.route("/post/new", methods=['GET', 'POST'])
+@login_required
+def new_post():
+  form = PostForm()
+  if form.validate_on_submit():
+    user = sqlite_code.get_user_with_rowid(current_user.get_id())
+    sqlite_code.add_post(user[1], form.title.data, form.content.data, str(datetime.date.today()))
+    flash('Your post has been created!', 'success')
+    return redirect(url_for('home'))
+  return render_template('create_post.html', title='New Post', form=form)
+
+  
 app.run(host='0.0.0.0', port=81)
