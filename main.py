@@ -12,6 +12,7 @@ login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
 
+
 class User(UserMixin):
 
   def __init__(self, rowid, username, email, password):
