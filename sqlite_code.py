@@ -1,9 +1,6 @@
 import sqlite3
 
 
-
-
-
 def posts():
   # Connect to database and Create a cursor
   conn = sqlite3.connect('posts.db')
@@ -54,8 +51,7 @@ def user_lookup(username):
   # Connect to database and Create a cursor
   conn = sqlite3.connect('user_database.db')
   c = conn.cursor()
-  c.execute("SELECT row, * from user_database WHERE username = (?)",
-            [username])
+  c.execute("SELECT rowid, * from user_database WHERE username = (?)", [username])
   # Commit our command and Close the connection
   user = c.fetchone()
   conn.commit()
@@ -108,6 +104,7 @@ def get_user_with_email(email):
   conn.close()
   return usr
 
+
 def get_user_with_rowid(rowid):
   # Connect to database and Create a cursor
   conn = sqlite3.connect('user_database.db')
@@ -120,14 +117,17 @@ def get_user_with_rowid(rowid):
   conn.close()
   return usr
 
+
 def add_post(author, title, content, date):
   # Connect to database and Create a cursor
   conn = sqlite3.connect('posts.db')
   c = conn.cursor()
-  c.execute("INSERT INTO posts VALUES (?,?,?,?)", [author, title, content, date])
+  c.execute("INSERT INTO posts VALUES (?,?,?,?)",
+            [author, title, content, date])
   # Commit our command and Close the connection
   conn.commit()
   conn.close()
+
 
 def show_all_posts():
   # Connect to database and Create a cursor

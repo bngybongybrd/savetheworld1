@@ -1,19 +1,30 @@
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
-  padding-top: 70px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 5rem;
 }
 
 html {
   height: -webkit-fill-available;
+  scroll-behavior: smooth;
 }
 
 main {
-  height: 100vh;
   height: -webkit-fill-available;
-  max-height: 100vh;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+div.row {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+div.test {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .dropdown-toggle { outline: 0; }
@@ -24,6 +35,7 @@ main {
   color: rgba(0, 0, 0, .65);
   background-color: transparent;
 }
+
 .btn-toggle:hover,
 .btn-toggle:focus {
   color: rgba(0, 0, 0, .85);
