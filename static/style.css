@@ -2,8 +2,9 @@ body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
   padding-top: 5px;
-  padding-bottom: 20px;
+  padding-bottom: 70px;
   margin-top: 5rem;
+  
 }
 
 html {
@@ -15,6 +16,14 @@ main {
   height: -webkit-fill-available;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
 }
 
 div.row {
