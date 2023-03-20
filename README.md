@@ -12,6 +12,7 @@ Link to the WebApp:
 https://savetheworld1.bngybongybrd.repl.co/
 
 Features that should be/needs to be added:
+- Hash the passwords :|
 - Make 'Remember me' checkbox work
 - Deletion/Updating of posts
 - Deleting/Editing of accounts
