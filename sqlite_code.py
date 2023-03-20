@@ -51,7 +51,8 @@ def user_lookup(username):
   # Connect to database and Create a cursor
   conn = sqlite3.connect('user_database.db')
   c = conn.cursor()
-  c.execute("SELECT rowid, * from user_database WHERE username = (?)", [username])
+  c.execute("SELECT rowid, * from user_database WHERE username = (?)",
+            [username])
   # Commit our command and Close the connection
   user = c.fetchone()
   conn.commit()
